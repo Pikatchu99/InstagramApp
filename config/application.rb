@@ -10,6 +10,7 @@ module InstagramApp
     config.time_zone = 'West Central Africa'
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja
+    config.i18n.default_locale = :en
 
     config.generators do |g|
       g.assets false
