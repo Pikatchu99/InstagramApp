@@ -1,0 +1,26 @@
+<div class="container">
+  <%= form_for @post do |post| %>
+    <% if @post.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <% @post.errors.full_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <label>Contenu</label>
+      <%= post.text_area :content, class: "form-control" %>
+    </div>
+
+     <div class="field mt-5">
+        <%= post.label :image %>
+      <%= post.file_field :image %>
+      </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary mt-5">Enregistrer</button>
+    </div>
+
+  <% end %>
+</div>

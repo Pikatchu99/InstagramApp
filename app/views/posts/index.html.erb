@@ -1,0 +1,77 @@
+<div class="container" style="margin-bottom: 50px;"></div>
+<div class="container">
+
+  <div class="d-flex justify-content-md-between">
+
+    <div>
+      <% @posts.each do |post| %>
+      <div class="card mb-5" style="width: 40rem;">
+        <div class="card-header d-flex">
+          <div class="">
+
+            <% if post.user.profile_picture.present? %>
+            <a href="<%=user_path(post.user.id)%>">
+              <%= image_tag post.user.profile_picture.url, :style => "height: 40px; width: 40px" %></a>
+            <% else %>
+            <a href="<%=user_path(post.user.id)%>">
+              <%= image_tag "default.jpg", :style => "height: 40px; width: 40px" %></a>
+            <% end %>
+          </div>
+          <h5 class="my-auto"><%= post.user.name%></h5>
+
+        </div>
+
+        <%= link_to post_path(post.id), :style => "text-decoration: none;", :class => "text-dark" do %>
+        <div class="card-body ">
+          <% if post.image.present? %>
+          <%= image_tag post.image.url, :class => "card-img-top" %>
+          <% end %>
+          <p class="card-text mt-3"><%= post.content%></p>
+        </div>
+        <% end %>
+
+        <div class="card-footer text-muted">
+          <% if current_user.favorites.find_by(post_id: post.id).present? %>
+          <%= link_to favorite_path(id: current_user.favorites.find_by(post_id: post.id).id), method: :delete, class: 'text-danger' do %>
+          <i class="bi bi-hand-thumbs-up-fill fs-2"></i>
+          <% end %>
+          <% else %>
+          <%= link_to favorites_path(post_id: post.id), method: :post, class: 'text-primary' do %>
+          <i class="bi bi-hand-thumbs-up fs-2"></i>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+
+    <div class="">
+      <div class="card border-0 shadow p-3 mb-5 rounded" style="width: 18rem;">
+        <div class="row ">
+          <div class="ms-2 mt-2 col-md-4 rounded-circle thum32">
+            <% if current_user.profile_picture.present? %>
+            <a href="<%=user_path(current_user.id)%>">
+              <%= image_tag current_user.profile_picture.url, :class => "w-100" %></a>
+            <% else %>
+            <a href="<%=user_path(current_user.id)%>">
+              <%= image_tag "default.jpg", :class => "w-100" %></a>
+            <% end %>
+          </div>
+          <div class="col-md-6 d-flex align-items-center mt-4 flex-column">
+            <strong style="font-size: 14px;"><%= current_user.name%></strong>
+            <p style="font-size: 10px;"><%= current_user.email%></p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="d-grid"><a class="btn btn-outline-succes perso" style="color: #E54867; border-color: #E54867;" href="<%= new_post_path%>">New Post</a></div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+</div>
