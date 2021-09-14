@@ -12,6 +12,7 @@ class PostsController < ApplicationController
     post.update(publish:false)
     if post.valid?
       post.save
+      ContactMailer.contact_mail(post).deliver
       redirect_to confirm_path(post.id)
     else
       @post = post
@@ -50,7 +51,7 @@ class PostsController < ApplicationController
     @post.update(publish:true)
     redirect_to posts_path, notice: "Post publier"
   end
-  
+
   private
   def post_params
     params.require(:post).permit(:content, :image, :image_cache)

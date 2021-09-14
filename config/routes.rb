@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts
   root to: 'homes#index'
   resources :sessions, only: [:new, :create, :destroy]
   resources :users do
@@ -14,5 +15,5 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unprocessable'
   get '/500', to: 'errors#internal_server'
   get '/users/:id/favorites', to: 'users#user_favorite', as: 'favor'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
