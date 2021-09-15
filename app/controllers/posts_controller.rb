@@ -1,3 +1,4 @@
+# coding: utf-8
 class PostsController < ApplicationController
   before_action :find_id, only: %i[show edit update destroy confirmed confirm]
   def index
@@ -12,7 +13,7 @@ class PostsController < ApplicationController
     post.update(publish:false)
     if post.valid?
       post.save
-      ContactMailer.contact_mail(post).deliver
+      # ContactMailer.contact_mail(post).deliver
       redirect_to confirm_path(post.id)
     else
       @post = post
